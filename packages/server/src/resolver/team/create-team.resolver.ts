@@ -1,4 +1,5 @@
 import { Auth, User } from '@decorator'
+import { APP_REMOVE_BRANDING } from '@environments'
 import { CreateTeamInput } from '@graphql'
 import { TeamRoleEnum, UserModel } from '@model'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
@@ -21,7 +22,8 @@ export class CreateTeamResolver {
       ownerId: user.id,
       name: input.name,
       avatar: input.avatar,
-      storageQuota: 0
+      storageQuota: 0,
+      removeBranding: APP_REMOVE_BRANDING
     })
 
     await this.teamService.createMember({

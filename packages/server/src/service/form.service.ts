@@ -6,11 +6,18 @@ import { Queue } from 'bull'
 import { Model } from 'mongoose'
 
 import { TeamService } from './team.service'
-import { GOOGLE_RECAPTCHA_KEY } from '@environments'
+import { APP_REMOVE_BRANDING, GOOGLE_RECAPTCHA_KEY } from '@environments'
 import { helper, pickObject, timestamp } from '@heyform-inc/utils'
 import { FormModel } from '@model'
 import { mapToObject } from '@utils'
 import { getUpdateQuery } from '@utils'
+
+export function resolveRemoveBranding(
+  envForceRemove: boolean,
+  team: { removeBranding?: boolean } | null | undefined
+): boolean {
+  return envForceRemove || !!team?.removeBranding
+}
 
 interface UpdateFiledOptions {
   formId: string
@@ -392,7 +399,7 @@ export class FormService {
 
     const team = await this.teamService.findById(form.teamId)
 
-    masked.settings.removeBranding = team.removeBranding
+    masked.settings.removeBranding = resolveRemoveBranding(APP_REMOVE_BRANDING, team)
 
     if (form.settings?.captchaKind === CaptchaKindEnum.GOOGLE_RECAPTCHA) {
       masked.settings.googleRecaptchaKey = GOOGLE_RECAPTCHA_KEY
