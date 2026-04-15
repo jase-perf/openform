@@ -1,6 +1,7 @@
 export { AuthService } from './auth.service'
 export { EndpointService } from './endpoint.service'
 export { FormService } from './form.service'
+export { FormAIService } from './form-ai.service'
 export { FormAnalyticService } from './form-analytic.service'
 export { FormReportService } from './form-report.service'
 export { MailService } from './mail.service'
