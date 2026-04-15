@@ -7,6 +7,7 @@ import { useRouter } from '@/utils'
 import { helper } from '@heyform-inc/utils'
 
 import { Form, Input, PasswordStrength } from '@/components'
+import { DISABLE_EMAIL_LOGIN } from '@/consts'
 import { useUserStore } from '@/store'
 
 import SocialLogin from './SocialLogin'
@@ -40,6 +41,7 @@ const SignUp = () => {
 
       <SocialLogin isSignUp />
 
+      {!DISABLE_EMAIL_LOGIN && (
       <Form.Simple
         className="space-y-4"
         fetch={fetch}
@@ -106,6 +108,7 @@ const SignUp = () => {
           <Input.Password onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} />
         </Form.Item>
       </Form.Simple>
+      )}
 
       <div className="text-secondary text-center text-sm">
         <p>

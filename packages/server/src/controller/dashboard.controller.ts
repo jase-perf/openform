@@ -2,9 +2,12 @@ import { Controller, Get, Header, Res } from '@nestjs/common'
 import { Response } from 'express'
 
 import {
+  APP_DISABLE_EMAIL_LOGIN,
   APP_DISABLE_REGISTRATION,
   APP_HOMEPAGE_URL,
   COOKIE_DOMAIN,
+  DISABLE_LOGIN_WITH_APPLE,
+  DISABLE_LOGIN_WITH_GOOGLE,
   ENABLE_GOOGLE_FONTS,
   GOOGLE_RECAPTCHA_KEY,
   STRIPE_PUBLISHABLE_KEY,
@@ -19,6 +22,9 @@ export class DashboardController {
       homepageURL: APP_HOMEPAGE_URL,
       websiteURL: APP_HOMEPAGE_URL,
       appDisableRegistration: APP_DISABLE_REGISTRATION,
+      disableEmailLogin: APP_DISABLE_EMAIL_LOGIN,
+      disableLoginWithGoogle: DISABLE_LOGIN_WITH_GOOGLE,
+      disableLoginWithApple: DISABLE_LOGIN_WITH_APPLE,
       cookieDomain: COOKIE_DOMAIN,
       enableGoogleFonts: ENABLE_GOOGLE_FONTS,
       stripePublishableKey: STRIPE_PUBLISHABLE_KEY,

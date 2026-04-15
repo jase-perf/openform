@@ -1,7 +1,7 @@
 import { BadRequestException, UseGuards } from '@nestjs/common'
 
 import { GraphqlResponse } from '@decorator'
-import { APP_DISABLE_REGISTRATION, BCRYPT_SALT } from '@environments'
+import { APP_DISABLE_EMAIL_LOGIN, APP_DISABLE_REGISTRATION, BCRYPT_SALT } from '@environments'
 import { SignUpInput } from '@graphql'
 import { DeviceIdGuard } from '@guard'
 import { helper } from '@heyform-inc/utils'
@@ -28,6 +28,10 @@ export class SignUpResolver {
   ): Promise<boolean> {
     if (APP_DISABLE_REGISTRATION) {
       throw new BadRequestException('Error: Registration is disabled')
+    }
+
+    if (APP_DISABLE_EMAIL_LOGIN) {
+      throw new BadRequestException('Error: Email sign-up is disabled on this server')
     }
 
     if (isDisposableEmail(input.email)) {

@@ -28,6 +28,9 @@ export const DISABLE_LOGIN_WITH_GOOGLE = helper.isTrue(
 export const DISABLE_LOGIN_WITH_APPLE = helper.isTrue(
   window.heyform?.disableLoginWithApple || import.meta.env.VITE_DISABLE_LOGIN_WITH_APPLE
 )
+export const DISABLE_EMAIL_LOGIN = helper.isTrue(
+  window.heyform?.disableEmailLogin || import.meta.env.VITE_DISABLE_EMAIL_LOGIN
+)
 export const VERIFY_USER_EMAIL = helper.isTrue(
   window.heyform?.verifyUserEmail || import.meta.env.VITE_VERIFY_USER_EMAIL
 )

@@ -1,6 +1,6 @@
 import { BadRequestException, UseGuards } from '@nestjs/common'
 
-import { BCRYPT_SALT } from '@environments'
+import { APP_DISABLE_EMAIL_LOGIN, BCRYPT_SALT } from '@environments'
 import { ResetPasswordInput } from '@graphql'
 import { DeviceIdGuard } from '@guard'
 import { helper } from '@heyform-inc/utils'
@@ -23,6 +23,10 @@ export class ResetPasswordResolver {
     @GqlLang() lang: UserLangEnum,
     @Args('input') input: ResetPasswordInput
   ): Promise<boolean> {
+    if (APP_DISABLE_EMAIL_LOGIN) {
+      throw new BadRequestException('Email login is disabled on this server')
+    }
+
     const user = await this.userService.findByEmail(input.email)
 
     if (helper.isEmpty(user)) {

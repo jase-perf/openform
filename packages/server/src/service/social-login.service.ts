@@ -10,6 +10,7 @@ import {
   APPLE_LOGIN_TEAM_ID,
   APPLE_LOGIN_WEB_CLIENT_ID,
   APP_DISABLE_REGISTRATION,
+  APP_GOOGLE_OAUTH_HD,
   APP_HOMEPAGE_URL,
   GOOGLE_LOGIN_CLIENT_ID,
   GOOGLE_LOGIN_CLIENT_SECRET
@@ -27,7 +28,15 @@ const appleOptions = {
 
 const googleOptions = {
   clientId: GOOGLE_LOGIN_CLIENT_ID,
-  clientSecret: GOOGLE_LOGIN_CLIENT_SECRET
+  clientSecret: GOOGLE_LOGIN_CLIENT_SECRET,
+  hostedDomain: APP_GOOGLE_OAUTH_HD || undefined
+}
+
+export function emailMatchesHostedDomain(email: string | undefined, domain: string): boolean {
+  if (!domain) return true
+  if (!email) return false
+  const suffix = `@${domain.toLowerCase()}`
+  return email.toLowerCase().endsWith(suffix)
 }
 
 @Injectable()
@@ -113,6 +122,16 @@ export class SocialLoginService {
 
     if (helper.isEmpty(userInfo)) {
       throw new BadRequestException('Invalid social media user information')
+    }
+
+    if (
+      (kind === SocialLoginTypeEnum.GOOGLE || kind === SocialLoginTypeEnum.GOOGLE_ONE_TAP) &&
+      APP_GOOGLE_OAUTH_HD &&
+      !emailMatchesHostedDomain(userInfo?.user?.email, APP_GOOGLE_OAUTH_HD)
+    ) {
+      throw new BadRequestException(
+        `Google sign-in is restricted to @${APP_GOOGLE_OAUTH_HD} accounts`
+      )
     }
 
     // Check if user social account exists

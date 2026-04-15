@@ -12,6 +12,7 @@ export interface GoogleSocialLoginOptions {
   clientSecret: string
   redirectUrl: string
   state?: string
+  hostedDomain?: string
 }
 
 export class GoogleSocialLogin {
@@ -26,7 +27,8 @@ export class GoogleSocialLogin {
     return oauth2Client.generateAuthUrl({
       scope: ['openid', 'profile', 'email'],
       redirect_uri: this.options.redirectUrl,
-      state: this.options.state
+      state: this.options.state,
+      ...(this.options.hostedDomain ? { hd: this.options.hostedDomain } : {})
     })
   }
 
