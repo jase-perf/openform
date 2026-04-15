@@ -14,6 +14,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document } from 'mongoose'
 
 import { helper, nanoid, parseJson } from '@heyform-inc/utils'
+import { numericEnumValues } from '@utils'
 
 @Schema({
   timestamps: true,
@@ -43,7 +44,7 @@ export class FormModel extends Document {
   @Prop({
     type: Number,
     required: true,
-    enum: Object.values(InteractiveModeEnum),
+    enum: numericEnumValues(InteractiveModeEnum),
     default: InteractiveModeEnum.GENERAL
   })
   interactiveMode: InteractiveModeEnum
@@ -51,7 +52,7 @@ export class FormModel extends Document {
   @Prop({
     type: Number,
     required: true,
-    enum: Object.values(FormKindEnum),
+    enum: numericEnumValues(FormKindEnum),
     default: FormKindEnum.SURVEY
   })
   kind: FormKindEnum
@@ -110,7 +111,7 @@ export class FormModel extends Document {
   @Prop({
     type: Number,
     required: true,
-    enum: Object.values(FormStatusEnum),
+    enum: numericEnumValues(FormStatusEnum),
     default: FormStatusEnum.NORMAL
   })
   status: FormStatusEnum

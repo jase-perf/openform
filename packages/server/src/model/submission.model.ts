@@ -8,7 +8,7 @@ import {
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document } from 'mongoose'
 
-import { UserAgent } from '@utils'
+import { UserAgent, numericEnumValues } from '@utils'
 
 export enum ExportSubmissionFormatEnum {
   CSV = 'csv',
@@ -57,7 +57,7 @@ export class SubmissionModel extends Document {
   @Prop({
     type: Number,
     required: true,
-    enum: Object.values(SubmissionStatusEnum),
+    enum: numericEnumValues(SubmissionStatusEnum),
     default: SubmissionStatusEnum.PUBLIC
   })
   status: SubmissionStatusEnum

@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document } from 'mongoose'
+import { numericEnumValues } from '@utils'
 
 export enum TeamActivityKindEnum {
   CREATE_TEAM = 1,
@@ -30,7 +31,7 @@ export class TeamActivityModel extends Document {
   @Prop({
     type: Number,
     required: true,
-    enum: Object.values(TeamActivityKindEnum)
+    enum: numericEnumValues(TeamActivityKindEnum)
   })
   kind: TeamActivityKindEnum
 

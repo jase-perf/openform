@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document } from 'mongoose'
+import { numericEnumValues } from '@utils'
 
 export enum AppStatusEnum {
   ACTIVE = 1,
@@ -77,7 +78,7 @@ export class AppModel extends Document {
   @Prop({
     type: Number,
     required: true,
-    enum: Object.values(AppStatusEnum)
+    enum: numericEnumValues(AppStatusEnum)
   })
   status: AppStatusEnum
 }

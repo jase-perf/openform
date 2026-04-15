@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document } from 'mongoose'
+import { numericEnumValues } from '@utils'
 
 export enum AttachmentStatusEnum {
   PUBLIC = 1,
@@ -29,7 +30,7 @@ export class AttachmentModel extends Document {
   @Prop({
     type: Number,
     required: true,
-    enum: Object.values(AttachmentStatusEnum),
+    enum: numericEnumValues(AttachmentStatusEnum),
     default: AttachmentStatusEnum.PUBLIC
   })
   status: AttachmentStatusEnum

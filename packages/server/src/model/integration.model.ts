@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document } from 'mongoose'
+import { numericEnumValues } from '@utils'
 
 export enum IntegrationStatusEnum {
   PENDING = 0,
@@ -26,7 +27,7 @@ export class IntegrationModel extends Document {
   @Prop({
     type: Number,
     required: true,
-    enum: Object.values(IntegrationStatusEnum),
+    enum: numericEnumValues(IntegrationStatusEnum),
     default: IntegrationStatusEnum.ACTIVE
   })
   status: IntegrationStatusEnum

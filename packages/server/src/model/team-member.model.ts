@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document } from 'mongoose'
+import { numericEnumValues } from '@utils'
 
 export enum TeamRoleEnum {
   OWNER,
@@ -16,7 +17,7 @@ export class TeamMemberModel extends Document {
   @Prop({ required: true, index: true })
   memberId: string
 
-  @Prop({ type: Number, required: true, enum: Object.values(TeamRoleEnum) })
+  @Prop({ type: Number, required: true, enum: numericEnumValues(TeamRoleEnum) })
   role: TeamRoleEnum
 
   @Prop({ default: 0 })

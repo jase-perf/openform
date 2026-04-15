@@ -6,6 +6,7 @@ import {
 } from '@heyform-inc/shared-types-enums'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document } from 'mongoose'
+import { numericEnumValues } from '@utils'
 
 @Schema({
   timestamps: true
@@ -29,7 +30,7 @@ export class TemplateModel extends Document {
   @Prop({
     type: Number,
     required: true,
-    enum: Object.values(InteractiveModeEnum),
+    enum: numericEnumValues(InteractiveModeEnum),
     default: InteractiveModeEnum.GENERAL
   })
   interactiveMode: InteractiveModeEnum
@@ -37,7 +38,7 @@ export class TemplateModel extends Document {
   @Prop({
     type: Number,
     required: true,
-    enum: Object.values(FormKindEnum),
+    enum: numericEnumValues(FormKindEnum),
     default: FormKindEnum.SURVEY
   })
   kind: FormKindEnum
