@@ -4,7 +4,7 @@ import { JobOptions, Queue } from 'bull'
 import { readFileSync, readdirSync } from 'fs'
 import { basename, extname, join } from 'path'
 
-import { EMAIL_TEMPLATES_DIR, SMTP_FROM } from '@environments'
+import { APP_BRAND_NAME, EMAIL_TEMPLATES_DIR, SMTP_FROM } from '@environments'
 import { helper } from '@heyform-inc/utils'
 
 interface JoinWorkspaceAlertOptions {
@@ -185,9 +185,11 @@ export class MailService {
     let subject = result!.subject
     let html = result!.html
 
-    if (helper.isValid(replacements) && helper.isPlainObject(replacements)) {
-      Object.keys(replacements!).forEach(key => {
-        const value = replacements![key]
+    const allReplacements = { brandName: APP_BRAND_NAME, ...replacements }
+
+    if (helper.isValid(allReplacements) && helper.isPlainObject(allReplacements)) {
+      Object.keys(allReplacements).forEach(key => {
+        const value = allReplacements[key]
         const regex = new RegExp(`{${key}}`, 'g')
 
         subject = subject.replace(regex, value)

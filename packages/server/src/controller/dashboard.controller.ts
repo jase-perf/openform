@@ -2,6 +2,7 @@ import { Controller, Get, Header, Res } from '@nestjs/common'
 import { Response } from 'express'
 
 import {
+  APP_BRAND_NAME,
   APP_DISABLE_EMAIL_LOGIN,
   APP_DISABLE_REGISTRATION,
   APP_HOMEPAGE_URL,
@@ -19,6 +20,7 @@ import { hs } from '@heyform-inc/utils'
 export class DashboardController {
   private runtimeConfig() {
     return {
+      brandName: APP_BRAND_NAME,
       homepageURL: APP_HOMEPAGE_URL,
       websiteURL: APP_HOMEPAGE_URL,
       appDisableRegistration: APP_DISABLE_REGISTRATION,
@@ -63,9 +65,8 @@ export class DashboardController {
   @Header('X-Frame-Options', 'SAMEORIGIN')
   index(@Res() res: Response) {
     return res.render('index', {
-      title: 'HeyForm Dashboard - Create and Manage Custom Forms Effortlessly',
-      description:
-        "Simplify your form creation process with HeyForm's intuitive dashboard. Design, customize, and manage forms all in one place, with no coding required.",
+      title: `${APP_BRAND_NAME} - Create and Manage Custom Forms`,
+      description: `Create, customize, and manage forms with ${APP_BRAND_NAME}. No coding required.`,
       heyform: this.runtimeConfig()
     })
   }

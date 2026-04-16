@@ -40,6 +40,7 @@ declare global {
       disableLoginWithApple?: boolean | string
       disableLoginWithGoogle?: boolean | string
       disableEmailLogin?: boolean | string
+      brandName?: string
       verifyUserEmail?: boolean | string
       templatesURL?: string
       helpCenterURL?: string

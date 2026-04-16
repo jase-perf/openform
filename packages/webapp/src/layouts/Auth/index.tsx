@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { helper } from '@heyform-inc/utils'
 
 import Logo from '@/assets/logo.svg?react'
+import { BRAND_NAME } from '@/consts'
 
 import LanguageSwitcher from './LanguageSwitcher'
 
@@ -13,16 +14,16 @@ export const AuthLayout: FC<LayoutProps> = ({ options, children }) => {
 
   useEffect(() => {
     if (helper.isValid(options?.title)) {
-      document.title = `${t(options!.title)} - HeyForm`
+      document.title = `${t(options!.title)} - ${BRAND_NAME}`
     }
   }, [options, t])
 
   return (
     <div className="bg-foreground flex min-h-screen flex-col">
       <div className="bg-foreground sticky top-0 flex items-center justify-between p-4">
-        <a href="/" className="flex items-center gap-2" title="HeyForm">
+        <a href="/" className="flex items-center gap-2" title={BRAND_NAME}>
           <Logo className="h-8 w-auto" />
-          <span className="text-xl font-medium">HeyForm</span>
+          <span className="text-xl font-medium">{BRAND_NAME}</span>
         </a>
 
         <LanguageSwitcher />

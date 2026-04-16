@@ -24,6 +24,7 @@ export const APP_HOMEPAGE_URL: string =
   process.env.APP_HOMEPAGE_URL || `http://${APP_LISTEN_HOSTNAME}:${APP_LISTEN_PORT}`
 export const APP_DISABLE_REGISTRATION: boolean = helper.isTrue(process.env.APP_DISABLE_REGISTRATION)
 export const APP_REMOVE_BRANDING: boolean = helper.isTrue(process.env.APP_REMOVE_BRANDING)
+export const APP_BRAND_NAME: string = process.env.APP_BRAND_NAME || 'Forms I Know I Did'
 export const APP_DISABLE_EMAIL_LOGIN: boolean = helper.isTrue(process.env.APP_DISABLE_EMAIL_LOGIN)
 export const APP_GOOGLE_OAUTH_HD: string = process.env.APP_GOOGLE_OAUTH_HD || ''
 export const ENABLE_GOOGLE_FONTS: boolean =

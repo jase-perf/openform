@@ -1,6 +1,7 @@
 import { SocialLoginTypeEnum } from '@heyform-inc/shared-types-enums'
 import { Controller, Get, Param, Post, Query, Req, Res } from '@nestjs/common'
 
+import { APP_BRAND_NAME } from '@environments'
 import { helper } from '@heyform-inc/utils'
 import { AuthService, RedisService, SocialLoginService } from '@service'
 import { Logger } from '@utils'
@@ -116,7 +117,8 @@ export class SocialLoginController {
       }
 
       res.render('social-login', {
-        redirectUri
+        redirectUri,
+        brandName: APP_BRAND_NAME
       })
     } catch (err) {
       this.logger.error(err)

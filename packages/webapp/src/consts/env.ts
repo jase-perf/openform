@@ -38,6 +38,8 @@ export const ENABLE_GOOGLE_FONTS = helper.isTrue(
   window.heyform?.enableGoogleFonts ?? import.meta.env.VITE_ENABLE_GOOGLE_FONTS ?? 'true'
 )
 
+export const BRAND_NAME: string = window.heyform?.brandName || 'Forms I Know I Did'
+
 export function isRegistrationDisabled() {
   return helper.isTrue(window.heyform?.appDisableRegistration)
 }
