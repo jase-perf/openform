@@ -246,12 +246,14 @@ export const Block: FC<BlockProps> = ({
                     <div className="heyform-block-header">
                       {field.title && (
                         <h1
+                          id={`question-title-${field.id}`}
                           className="heyform-block-title"
                           dangerouslySetInnerHTML={{ __html: removeHeading(field.title as string) }}
                         />
                       )}
                       {field.description && (
                         <div
+                          id={`question-desc-${field.id}`}
                           className="heyform-block-description"
                           dangerouslySetInnerHTML={{ __html: field.description as string }}
                         />
@@ -260,7 +262,13 @@ export const Block: FC<BlockProps> = ({
 
                     {isInlineLayout && <Layout {...field.layout} />}
 
+                    <div
+                      role="group"
+                      aria-labelledby={field.title ? `question-title-${field.id}` : undefined}
+                      aria-describedby={field.description ? `question-desc-${field.id}` : undefined}
+                    >
                     {children}
+                    </div>
                   </div>
                 </div>
               </div>

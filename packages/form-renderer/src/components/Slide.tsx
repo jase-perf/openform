@@ -60,7 +60,7 @@ export const Slide: FC<SlideProps> = ({
   }
 
   function handleWheelScroll(event: WheelEvent) {
-    if (isSwipeDisabled) {
+    if (isSwipeDisabled || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
       return
     }
 

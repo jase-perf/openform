@@ -19,7 +19,7 @@ export const FormField: FC<FormFieldProps> = ({ className, children, ...restProp
             {childNode}
             {meta.errors.length > 0 && (
               <div className="heyform-validation-wrapper">
-                <div className="heyform-validation-error">{meta.errors[0]}</div>
+                <div className="heyform-validation-error" role="alert" aria-live="polite">{meta.errors[0]}</div>
               </div>
             )}
           </div>

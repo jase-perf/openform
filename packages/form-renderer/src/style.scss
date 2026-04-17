@@ -1651,6 +1651,11 @@ button.button-icon-only {
 .heyform-branding {
   @apply rounded-md;
   line-height: 1.5rem;
+
+  &:focus-visible {
+    outline: 2px solid var(--heyform-button-color);
+    outline-offset: 2px;
+  }
 }
 
 .heyform-pagination .button {
@@ -1676,8 +1681,13 @@ button.button-icon-only {
   }
 
   &:focus {
-    outline: none !important;
-    box-shadow: none !important;
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--heyform-button-color);
+    outline-offset: 2px;
   }
 }
 
@@ -1710,12 +1720,17 @@ button.heyform-pagination-previous {
 }
 
 button.heyform-submit-button {
-  @apply relative inline-flex items-center justify-center rounded-md px-5 py-1.5 text-lg font-medium shadow-none outline-none;
+  @apply relative inline-flex items-center justify-center rounded-md px-5 py-1.5 text-lg font-medium shadow-none;
   background-color: var(--heyform-button-color);
   color: var(--heyform-button-text-color);
 
   &:hover {
     background-color: var(--heyform-button-opacity-80-color);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--heyform-button-color);
+    outline-offset: 2px;
   }
 
   svg {

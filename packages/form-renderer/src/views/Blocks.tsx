@@ -181,6 +181,11 @@ const Main: FC = () => {
 
     if (isReducedMotion) {
       setLeavingField(undefined)
+      // Focus the first interactive element in the new question
+      requestAnimationFrame(() => {
+        const el = document.querySelector('.heyform-block.heyform-block-active input, .heyform-block.heyform-block-active textarea, .heyform-block.heyform-block-active [tabindex="0"], .heyform-block.heyform-block-active [contenteditable="true"]') as HTMLElement
+        el?.focus()
+      })
       return
     }
 
@@ -191,6 +196,9 @@ const Main: FC = () => {
 
     const timeoutId = window.setTimeout(() => {
       setLeavingField(undefined)
+      // Focus the first interactive element after transition completes
+      const el = document.querySelector('.heyform-block.heyform-block-active input, .heyform-block.heyform-block-active textarea, .heyform-block.heyform-block-active [tabindex="0"], .heyform-block.heyform-block-active [contenteditable="true"]') as HTMLElement
+      el?.focus()
     }, QUESTION_TRANSITION_DURATION)
 
     return () => window.clearTimeout(timeoutId)
