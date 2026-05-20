@@ -25,7 +25,6 @@ export class SubmissionModel extends Document {
   @Prop({
     type: String,
     required: true,
-    enum: Object.values(SubmissionCategoryEnum),
     default: SubmissionCategoryEnum.INBOX
   })
   category: SubmissionCategoryEnum

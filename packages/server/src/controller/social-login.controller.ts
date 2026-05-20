@@ -7,6 +7,7 @@ import { AuthService, RedisService, SocialLoginService } from '@service'
 import { Logger } from '@utils'
 
 const { isValid } = helper
+const OAUTH_STATE_TTL = '10m'
 
 @Controller()
 export class SocialLoginController {
@@ -33,6 +34,7 @@ export class SocialLoginController {
   async authUrl(
     @Param('kind') kind: string,
     @Query() query: Record<string, string>,
+    @Req() req: any,
     @Res() res: any
   ) {
     if (helper.isEmpty(query.state)) {
@@ -43,16 +45,17 @@ export class SocialLoginController {
       })
     }
 
-    const authUrl = this.socialLoginService.authUrl(kind as any, query.state)
+    const oauthState = await this.authService.createOAuthState(req, res, query.state)
+    const authUrl = this.socialLoginService.authUrl(kind as any, oauthState)
 
     // Store redirect_uri to redis
     if (isValid(query.redirect_uri)) {
-      const key = `redirect_uri:${query.state}`
+      const key = `redirect_uri:${oauthState}`
 
       await this.redisService.set({
         key,
         value: query.redirect_uri,
-        duration: '1m'
+        duration: OAUTH_STATE_TTL
       })
     }
 
@@ -94,6 +97,8 @@ export class SocialLoginController {
     res: any
   ) {
     try {
+      await this.authService.verifyOAuthState(req, res, query.state)
+
       const userId = await this.socialLoginService.authCallback(
         kind,
         query.code || query.credential
@@ -102,7 +107,7 @@ export class SocialLoginController {
       await this.authService.login({
         res,
         userId,
-        deviceId: query.state
+        deviceId: this.authService.getDeviceId(req)
       })
 
       const baseUri = '/'

@@ -3,10 +3,10 @@ import { Document } from 'mongoose'
 import { numericEnumValues } from '@utils'
 
 export enum TeamRoleEnum {
-  OWNER,
-  ADMIN,
-  COLLABORATOR,
-  MEMBER
+  OWNER = 0,
+  ADMIN = 1,
+  COLLABORATOR = 2,
+  MEMBER = 3
 }
 
 @Schema()
