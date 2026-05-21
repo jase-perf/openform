@@ -96,6 +96,11 @@ async function bootstrap() {
   // from /static; redirect once and the client caches the redirect.
   app.use('/favicon.ico', (_req, res) => res.redirect(301, '/static/favicon.ico'))
 
+  // Crawlers hit /robots.txt at the root. Discourage indexing of the app shell.
+  app.use('/robots.txt', (_req, res) =>
+    res.type('text/plain').send('User-agent: *\nDisallow: /\n')
+  )
+
   // Template rendering
   app.engine('html', hbs.__express)
   app.setBaseViewsDir(VIEW_DIR)
