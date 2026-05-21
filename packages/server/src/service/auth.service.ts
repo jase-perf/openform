@@ -22,6 +22,7 @@ import {
   helper,
   hs,
   isDateExpired,
+  ms,
   nanoid,
   parseNumber,
   random,
@@ -56,7 +57,8 @@ const DEFAULT_ATTEMPTS_OPTIONS = {
 }
 const NUMERIC_ALPHABET = '0123456789'
 const OAUTH_STATE_COOKIE_NAME = 'HEYFORM_OAUTH_STATE'
-const OAUTH_STATE_MAX_AGE = hs('10m')
+// Express cookie maxAge is in milliseconds, so use ms() not hs() (seconds).
+const OAUTH_STATE_MAX_AGE = ms('10m')
 
 @Injectable()
 export class AuthService {
