@@ -6,7 +6,7 @@ export function requestParser(req: any, keys: string[]): any {
 
   for (const source of sources) {
     for (const key of keys) {
-      const searchValue = req[source][key]
+      const searchValue = req[source]?.[key]
 
       if (helper.isValid(searchValue)) {
         value = searchValue
