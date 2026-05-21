@@ -39,7 +39,8 @@ export class SocialLoginController {
   ) {
     if (helper.isEmpty(query.state)) {
       return res.render('index', {
-        payload: {
+        heyform: {
+          brandName: APP_BRAND_NAME,
           error: `unable_connect_${kind}`.toUpperCase()
         }
       })
@@ -61,7 +62,8 @@ export class SocialLoginController {
 
     if (helper.isEmpty(authUrl)) {
       return res.render('index', {
-        data: {
+        heyform: {
+          brandName: APP_BRAND_NAME,
           error: `unable_connect_${kind}`.toUpperCase()
         }
       })
@@ -129,7 +131,8 @@ export class SocialLoginController {
       this.logger.error(err)
 
       res.render('index', {
-        data: {
+        heyform: {
+          brandName: APP_BRAND_NAME,
           error: `unable_connect_${kind}`.toUpperCase()
         }
       })
