@@ -92,6 +92,10 @@ async function bootstrap() {
     })
   )
 
+  // Browsers and link unfurlers fetch /favicon.ico at the root. We serve it
+  // from /static; redirect once and the client caches the redirect.
+  app.use('/favicon.ico', (_req, res) => res.redirect(301, '/static/favicon.ico'))
+
   // Template rendering
   app.engine('html', hbs.__express)
   app.setBaseViewsDir(VIEW_DIR)
